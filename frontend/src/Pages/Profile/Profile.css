@@ -318,6 +318,12 @@
   color: #fff;
   border-radius: 999px;
   padding: 0.32rem 0.78rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.profile-follow-button:hover:not(:disabled) {
+  filter: brightness(0.9);
 }
 
 .profile-follow-button:disabled {
@@ -386,6 +392,26 @@
 
 .profile-private-lock-card {
   border-style: dashed;
+}
+
+.profile-tabs button,
+.profile-edit-button,
+.profile-inline-delete-button:not(:disabled),
+.profile-saved-post-remove-button:not(:disabled) {
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.profile-tabs button:hover,
+.profile-edit-button:hover,
+.profile-inline-delete-button:hover:not(:disabled),
+.profile-saved-post-remove-button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: #fff;
 }
 
 .profile-follow-requests {
