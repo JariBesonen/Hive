@@ -22,6 +22,8 @@ nav * {
 }
 
 .brand-link {
+  justify-self: start;
+  width: max-content;
   flex-shrink: 0;
 }
 
