@@ -283,3 +283,21 @@
   color: #6a4a00;
   font-size: 0.9rem;
 }
+
+.post-card button:not(:disabled) {
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.post-card button:disabled {
+  cursor: not-allowed;
+}
+
+.post-card button:hover:not(:disabled) {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: #fff;
+}
