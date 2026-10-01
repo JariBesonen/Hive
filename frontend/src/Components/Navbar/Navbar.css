@@ -29,6 +29,11 @@ h1 {
   color: var(--accent);
   text-decoration: none;
   font-size: 2.1rem;
+  transition: color 0.2s ease;
+}
+
+.brand-link:hover h1 {
+  color: #000;
 }
 
 nav ul {
@@ -51,6 +56,16 @@ nav ul li {
 nav ul li > a {
   display: inline-flex;
   align-items: center;
+}
+
+.nav-right > ul > li > a[href="/"],
+.nav-right > ul > li > a[href="/profile"] {
+  transition: color 0.2s ease;
+}
+
+.nav-right > ul > li > a[href="/"]:hover,
+.nav-right > ul > li > a[href="/profile"]:hover {
+  color: var(--accent);
 }
 
 a {
@@ -118,6 +133,14 @@ a {
   background: var(--accent-surface);
   color: var(--accent-dark);
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.nav-search-submit:hover {
+  background-color: #000;
+  color: #fff;
 }
 
 .nav-search-dropdown {
@@ -318,6 +341,15 @@ a {
   background: var(--accent);
   color: white;
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.login-link:hover,
+.auth-controls button:hover {
+  background-color: #000;
+  color: #fff;
 }
 
 .login-link {
