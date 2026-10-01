@@ -59,12 +59,16 @@ nav ul li > a {
 }
 
 .nav-right > ul > li > a[href="/"],
-.nav-right > ul > li > a[href="/profile"] {
+.nav-right > ul > li > a[href="/profile"],
+.nav-right > ul > li > a[href="/create"],
+.nav-right > ul > li > a[href="/messages"] {
   transition: color 0.2s ease;
 }
 
 .nav-right > ul > li > a[href="/"]:hover,
-.nav-right > ul > li > a[href="/profile"]:hover {
+.nav-right > ul > li > a[href="/profile"]:hover,
+.nav-right > ul > li > a[href="/create"]:hover,
+.nav-right > ul > li > a[href="/messages"]:hover {
   color: var(--accent);
 }
 
