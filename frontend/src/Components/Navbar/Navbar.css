@@ -344,11 +344,19 @@ a {
 
 .login-link,
 .auth-controls button {
+  box-sizing: border-box;
+  display: inline-flex;
+  width: 5rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
   border: none;
-  padding: 0.35rem 0.55rem;
+  padding: 0;
   background: var(--accent);
   color: white;
   cursor: pointer;
+  font: inherit;
+  line-height: 1;
   transition:
     color 0.2s ease,
     background-color 0.2s ease;
