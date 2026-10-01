@@ -31,7 +31,7 @@
   color: var(--body-text);
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 0.45rem 0.6rem;
 }
 
@@ -47,6 +47,10 @@
   padding: 0.65rem;
   color: var(--muted-text);
   font-size: 0.92rem;
+}
+
+.side-placeholder-joined {
+  border-radius: 0;
 }
 
 .side-error {

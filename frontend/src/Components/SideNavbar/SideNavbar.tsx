@@ -64,7 +64,9 @@ function SideNavbar() {
             <p className="side-error">{joinedHiveError}</p>
           ) : null}
           {!joinedHiveError && joinedHives.length === 0 ? (
-            <p className="side-placeholder">Join a hive to see it here.</p>
+            <p className="side-placeholder side-placeholder-joined">
+              Join a hive to see it here.
+            </p>
           ) : null}
           <div className="side-hives-list">
             {joinedHives.slice(0, 5).map((hive: ApiHive) => (
