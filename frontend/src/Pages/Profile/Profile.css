@@ -22,7 +22,7 @@
     rgba(255, 255, 255, 0)
   );
   padding: 1rem 1.15rem;
-  margin-top: -3vh;
+  margin-top: calc(-3vh + 1rem);
   overflow: hidden;
 }
 
