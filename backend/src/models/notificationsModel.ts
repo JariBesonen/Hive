@@ -63,7 +63,9 @@ function buildGroupKey(notification: NotificationRow): string {
   }
 }
 
-function toGroupedNotifications(rows: NotificationRow[]): GroupedNotification[] {
+function toGroupedNotifications(
+  rows: NotificationRow[],
+): GroupedNotification[] {
   const groups = new Map<string, GroupedNotification>();
 
   rows.forEach((row) => {
@@ -89,7 +91,10 @@ function toGroupedNotifications(rows: NotificationRow[]): GroupedNotification[] 
     if (!existing.actorUsernames.includes(row.actor_username)) {
       existing.actorUsernames.push(row.actor_username);
     }
-    if (new Date(row.created_at).getTime() > new Date(existing.createdAt).getTime()) {
+    if (
+      new Date(row.created_at).getTime() >
+      new Date(existing.createdAt).getTime()
+    ) {
       existing.createdAt = row.created_at;
       existing.postId = row.post_id;
       existing.commentId = row.comment_id;

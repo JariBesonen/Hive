@@ -238,7 +238,10 @@ export async function follow(req: Request, res: Response): Promise<Response> {
     return res.status(400).json({ message: "You cannot follow yourself." });
   }
 
-  const alreadyFollowing = await isFollowingUser(req.session.userId, targetUser.id);
+  const alreadyFollowing = await isFollowingUser(
+    req.session.userId,
+    targetUser.id,
+  );
   if (alreadyFollowing) {
     const followerCount = await getFollowerCountByUserId(targetUser.id);
     return res.status(200).json({
@@ -309,7 +312,9 @@ export async function unfollow(req: Request, res: Response): Promise<Response> {
     const followerCount = await getFollowerCountByUserId(targetUser.id);
 
     return res.status(200).json({
-      message: canceled ? "Follow request canceled." : "No pending follow request.",
+      message: canceled
+        ? "Follow request canceled."
+        : "No pending follow request.",
       followerCount,
       isFollowing: false,
       requestStatus: "none",
@@ -362,7 +367,10 @@ export async function approveFollowRequest(
     return res.status(400).json({ message: "Invalid follow request id." });
   }
 
-  const approved = await approveFollowRequestById(requestId, req.session.userId);
+  const approved = await approveFollowRequestById(
+    requestId,
+    req.session.userId,
+  );
   if (!approved) {
     return res.status(404).json({ message: "Follow request not found." });
   }
@@ -414,27 +422,22 @@ export async function settings(req: Request, res: Response): Promise<Response> {
     bannerImage?: Express.Multer.File[];
   };
 
-  const {
-    username,
-    displayName,
-    bio,
-    themePreference,
-    isPrivate,
-  } = req.body as {
-    notificationPreferences?: {
-      all?: boolean;
-      postLikes?: boolean;
-      postComments?: boolean;
-      replies?: boolean;
-      commentLikes?: boolean;
-      hiveFollows?: boolean;
+  const { username, displayName, bio, themePreference, isPrivate } =
+    req.body as {
+      notificationPreferences?: {
+        all?: boolean;
+        postLikes?: boolean;
+        postComments?: boolean;
+        replies?: boolean;
+        commentLikes?: boolean;
+        hiveFollows?: boolean;
+      };
+      username?: string;
+      displayName?: string;
+      bio?: string;
+      themePreference?: "light" | "dark";
+      isPrivate?: boolean | string;
     };
-    username?: string;
-    displayName?: string;
-    bio?: string;
-    themePreference?: "light" | "dark";
-    isPrivate?: boolean | string;
-  };
   const { notificationPreferences } = req.body as {
     notificationPreferences?: {
       all?: boolean;
@@ -551,9 +554,8 @@ export async function settings(req: Request, res: Response): Promise<Response> {
   }
 
   if (currentUser.is_private && parsedIsPrivate === false) {
-    const approvedRequesterIds = await approveAllPendingFollowRequestsForRecipient(
-      req.session.userId,
-    );
+    const approvedRequesterIds =
+      await approveAllPendingFollowRequestsForRecipient(req.session.userId);
     await Promise.all(
       approvedRequesterIds.map((requesterId) =>
         createNotification({

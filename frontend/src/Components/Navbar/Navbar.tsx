@@ -231,6 +231,7 @@ function Navbar() {
 
   async function handleLogout(): Promise<void> {
     await logout();
+    navigate("/");
   }
 
   async function handleToggleNotifications(): Promise<void> {

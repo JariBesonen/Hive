@@ -454,10 +454,7 @@ export async function updateProfileSettings(
   return rows[0] || null;
 }
 
-export async function savePost(
-  userId: number,
-  postId: number,
-): Promise<void> {
+export async function savePost(userId: number, postId: number): Promise<void> {
   await query(
     `INSERT INTO saved_posts (user_id, post_id)
      VALUES ($1, $2)
@@ -493,7 +490,9 @@ export async function isPostSaved(
   return rows[0]?.exists ?? false;
 }
 
-export async function getSavedPostsByUserId(userId: number): Promise<UserPostRow[]> {
+export async function getSavedPostsByUserId(
+  userId: number,
+): Promise<UserPostRow[]> {
   return query<UserPostRow>(
     `SELECT ${postVoteSelect(
       `COALESCE((SELECT pv.vote FROM post_votes pv WHERE pv.post_id = p.id AND pv.user_id = $1 LIMIT 1), 0)`,
