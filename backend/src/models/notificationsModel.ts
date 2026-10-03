@@ -7,7 +7,9 @@ export type NotificationType =
   | "comment_like"
   | "comment_reply"
   | "hive_follow"
-  | "hive_follow_accepted";
+  | "hive_follow_accepted"
+  | "follow_request"
+  | "follow_request_accepted";
 
 interface NotificationRow {
   id: number;

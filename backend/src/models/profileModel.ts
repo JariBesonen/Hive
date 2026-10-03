@@ -366,7 +366,7 @@ export async function denyFollowRequestById(
 
 export async function approveAllPendingFollowRequestsForRecipient(
   recipientId: number,
-): Promise<number> {
+): Promise<number[]> {
   const rows = await query<{ requester_id: number }>(
     `UPDATE follow_requests
      SET status = 'approved',
@@ -381,7 +381,7 @@ export async function approveAllPendingFollowRequestsForRecipient(
     rows.map((row) => followUser(row.requester_id, recipientId)),
   );
 
-  return rows.length;
+  return rows.map((row) => row.requester_id);
 }
 
 export async function canViewerAccessPrivateProfile(

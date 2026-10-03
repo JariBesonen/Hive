@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import type { Request, Response } from "express";
 import { findUserByUsername } from "../models/authModel";
+import { createNotification } from "../models/notificationsModel";
 import { mapPost } from "../models/postsModel";
 import {
   approveAllPendingFollowRequestsForRecipient,
@@ -253,6 +254,11 @@ export async function follow(req: Request, res: Response): Promise<Response> {
       req.session.userId,
       targetUser.id,
     );
+    await createNotification({
+      recipientUserId: targetUser.id,
+      actorUserId: req.session.userId,
+      type: "follow_request",
+    });
     const followerCount = await getFollowerCountByUserId(targetUser.id);
 
     return res.status(202).json({
@@ -360,6 +366,12 @@ export async function approveFollowRequest(
   if (!approved) {
     return res.status(404).json({ message: "Follow request not found." });
   }
+
+  await createNotification({
+    recipientUserId: approved.requester_id,
+    actorUserId: req.session.userId,
+    type: "follow_request_accepted",
+  });
 
   const followerCount = await getFollowerCountByUserId(req.session.userId);
   return res.status(200).json({
@@ -539,7 +551,18 @@ export async function settings(req: Request, res: Response): Promise<Response> {
   }
 
   if (currentUser.is_private && parsedIsPrivate === false) {
-    await approveAllPendingFollowRequestsForRecipient(req.session.userId);
+    const approvedRequesterIds = await approveAllPendingFollowRequestsForRecipient(
+      req.session.userId,
+    );
+    await Promise.all(
+      approvedRequesterIds.map((requesterId) =>
+        createNotification({
+          recipientUserId: requesterId,
+          actorUserId: req.session.userId as number,
+          type: "follow_request_accepted",
+        }),
+      ),
+    );
   }
 
   return res.status(200).json({ user: mapProfileUser(user) });

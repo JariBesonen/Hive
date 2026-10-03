@@ -25,12 +25,20 @@ function formatNotificationMessage(notification: ApiNotification): string {
       return `${actorText} followed your hive.`;
     case "hive_follow_accepted":
       return `${actorText} accepted your request to follow their hive.`;
+    case "follow_request":
+      return `${actorText} requested to follow you.`;
+    case "follow_request_accepted":
+      return `${actorText} accepted your follow request.`;
     default:
       return `${actorText} sent you a notification.`;
   }
 }
 
 function resolveNotificationTarget(notification: ApiNotification): string {
+  if (notification.type === "follow_request_accepted") {
+    return `/profile/${encodeURIComponent(notification.actorUsernames[0])}`;
+  }
+
   if (notification.hiveId) {
     return `/hive/${notification.hiveId}`;
   }
