@@ -9,7 +9,7 @@ export async function initDatabase(): Promise<void> {
       password_hash TEXT NOT NULL,
       display_name VARCHAR(60) NOT NULL,
       bio TEXT NOT NULL DEFAULT '',
-      theme_preference VARCHAR(10) NOT NULL DEFAULT 'light',
+      theme_preference VARCHAR(10) NOT NULL DEFAULT 'dark',
       created_at TIMESTAMP NOT NULL DEFAULT NOW(),
       updated_at TIMESTAMP NOT NULL DEFAULT NOW()
     );`,
@@ -17,7 +17,12 @@ export async function initDatabase(): Promise<void> {
 
   await query(
     `ALTER TABLE users
-     ADD COLUMN IF NOT EXISTS theme_preference VARCHAR(10) NOT NULL DEFAULT 'light';`,
+     ADD COLUMN IF NOT EXISTS theme_preference VARCHAR(10) NOT NULL DEFAULT 'dark';`,
+  );
+
+  await query(
+    `ALTER TABLE users
+     ALTER COLUMN theme_preference SET DEFAULT 'dark';`,
   );
 
   await query(

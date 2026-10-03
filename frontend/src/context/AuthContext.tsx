@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [refreshMe]);
 
   useEffect(() => {
-    const theme = currentUser?.themePreference === "dark" ? "dark" : "light";
+    const theme = currentUser?.themePreference === "light" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", theme);
   }, [currentUser?.themePreference]);
 

@@ -27,7 +27,7 @@ export default function Settings() {
   const { currentUser, loading, refreshMe, deleteAccount } = useAuth();
   const [username, setUsername] = useState<string>(currentUser?.username || "");
   const [themePreference, setThemePreference] = useState<"light" | "dark">(
-    currentUser?.themePreference || "light",
+    currentUser?.themePreference || "dark",
   );
   const [notificationPreferences, setNotificationPreferences] =
     useState<NotificationPreferences>(
