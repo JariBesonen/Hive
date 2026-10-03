@@ -8,6 +8,7 @@ export default function Explore() {
   const [searchParams] = useSearchParams();
   const [posts, setPosts] = useState<ApiPost[]>([]);
   const [error, setError] = useState<string>("");
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const query = searchParams.get("q")?.trim().toLowerCase() || "";
 
@@ -34,6 +35,8 @@ export default function Explore() {
             ? caughtError.message
             : "Unable to load posts.",
         );
+      } finally {
+        setIsLoaded(true);
       }
     }
 
@@ -55,6 +58,9 @@ export default function Explore() {
         {error ? <p className="feed-error">{error}</p> : null}
         {!error && query && filteredPosts.length === 0 ? (
           <p className="feed-empty">No posts matched your search.</p>
+        ) : null}
+        {!error && !query && isLoaded && posts.length === 0 ? (
+          <p className="feed-empty">No posts to show yet.</p>
         ) : null}
         <div className="feed-list">
           {filteredPosts.map((post: ApiPost) => (
