@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../lib/api";
 import type { ApiConversation, ApiMessage } from "../../lib/api";
@@ -105,6 +105,10 @@ export function Messages() {
     );
   }
 
+  const selectedConversation = conversations.find(
+    (c) => c.otherUserId === selectedUserId,
+  );
+
   return (
     <div className="messages-container">
       <div className="messages-list">
@@ -152,8 +156,16 @@ export function Messages() {
         {selectedUserId ? (
           <>
             <div className="messages-header">
-              {conversations.find((c) => c.otherUserId === selectedUserId)
-                ?.otherUserDisplayName || "Loading..."}
+              {selectedConversation ? (
+                <Link
+                  className="messages-header-link"
+                  to={`/profile/${encodeURIComponent(selectedConversation.otherUserUsername)}`}
+                >
+                  {selectedConversation.otherUserDisplayName}
+                </Link>
+              ) : (
+                "Loading..."
+              )}
             </div>
             {error && <div className="messages-error">{error}</div>}
             <div className="messages-content" ref={messageListRef}>
