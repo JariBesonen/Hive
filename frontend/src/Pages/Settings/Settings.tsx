@@ -173,7 +173,9 @@ export default function Settings() {
 
           <section className="settings-section">
             <h3>Notifications</h3>
-            <p>Mute all notifications or control individual notification types.</p>
+            <p>
+              Mute all notifications or control individual notification types.
+            </p>
 
             <label className="settings-checkbox-row">
               <input

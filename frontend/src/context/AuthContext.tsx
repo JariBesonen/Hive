@@ -102,7 +102,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       deleteAccount,
       refreshMe,
     }),
-    [currentUser, loading, hiveRefreshKey, incrementHiveRefreshKey, login, register, logout, deleteAccount, refreshMe],
+    [
+      currentUser,
+      loading,
+      hiveRefreshKey,
+      incrementHiveRefreshKey,
+      login,
+      register,
+      logout,
+      deleteAccount,
+      refreshMe,
+    ],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

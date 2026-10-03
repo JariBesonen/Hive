@@ -374,6 +374,17 @@ a {
   text-transform: capitalize;
 }
 
+:root[data-theme="dark"] .brand-link:hover h1 {
+  color: var(--body-text);
+}
+
+:root[data-theme="dark"] .nav-search-submit:hover,
+:root[data-theme="dark"] .login-link:hover,
+:root[data-theme="dark"] .auth-controls button:hover {
+  background-color: var(--body-text);
+  color: var(--page-bg);
+}
+
 .auth-controls small {
   color: var(--muted-text);
 }
