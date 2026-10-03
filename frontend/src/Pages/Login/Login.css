@@ -65,3 +65,11 @@
 .auth-error {
   color: #ab1d1d;
 }
+
+:root[data-theme="dark"] .auth-page {
+  background: var(--page-bg);
+}
+
+:root[data-theme="dark"] .auth-error {
+  color: #ff8a8a;
+}
