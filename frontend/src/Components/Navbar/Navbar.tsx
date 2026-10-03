@@ -434,9 +434,11 @@ function Navbar() {
               </Link>
             </li>
           ) : null}
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
+          {currentUser ? (
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          ) : null}
         </ul>
         <div className="auth-controls">
           {currentUser ? (
