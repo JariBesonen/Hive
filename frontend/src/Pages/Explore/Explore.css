@@ -1,5 +1,5 @@
 .feed-page {
-  margin-top: 10vh;
+  margin-top: var(--top-nav-height);
   min-height: 90vh;
   background: var(--page-bg);
   padding: 1.2rem;

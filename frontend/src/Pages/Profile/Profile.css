@@ -292,7 +292,7 @@
 
 .profile-sidebar {
   position: sticky;
-  top: calc(10vh + 0.6rem);
+  top: calc(var(--top-nav-height) + 0.6rem);
 }
 
 .profile-sidebar-card {

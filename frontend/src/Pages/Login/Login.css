@@ -1,5 +1,5 @@
 .auth-page {
-  margin-top: 10vh;
+  margin-top: var(--top-nav-height);
   min-height: 90vh;
   display: grid;
   place-items: center;

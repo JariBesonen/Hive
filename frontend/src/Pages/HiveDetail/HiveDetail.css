@@ -1,5 +1,5 @@
 .hive-page {
-  margin-top: 10vh;
+  margin-top: var(--top-nav-height);
   min-height: 90vh;
   background: var(--page-bg);
   padding: 1.2rem;
@@ -212,7 +212,7 @@
 
 .hive-sidebar {
   position: sticky;
-  top: calc(10vh + 0.4rem);
+  top: calc(var(--top-nav-height) + 0.4rem);
 }
 
 .hive-description-card,

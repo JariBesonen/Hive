@@ -421,35 +421,35 @@ a {
   }
 }
 
-@media (min-width: 1025px) {
-  .home-route-shell nav {
+@media (min-width: 1151px) {
+  nav {
     grid-template-columns: max-content minmax(260px, 1fr) max-content;
     gap: 0.75rem;
     padding: 0 1.25rem;
   }
 
-  .home-route-shell .nav-search {
+  .nav-search {
     width: 100%;
     max-width: 400px;
     margin: 0;
     justify-self: end;
   }
 
-  .home-route-shell .nav-right {
+  .nav-right {
     min-width: max-content;
     justify-content: flex-end;
     flex-wrap: nowrap;
     gap: 0.75rem;
   }
 
-  .home-route-shell nav ul,
-  .home-route-shell .auth-controls {
+  nav ul,
+  .auth-controls {
     gap: 0.75rem;
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .home-route-shell nav {
+@media (min-width: 769px) and (max-width: 1150px) {
+  nav {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "brand actions"
@@ -458,31 +458,37 @@ a {
     padding: 0.65rem 1rem;
   }
 
-  .home-route-shell .brand-link {
+  .brand-link {
     grid-area: brand;
   }
 
-  .home-route-shell .nav-search {
+  .nav-search {
     grid-area: search;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    justify-self: stretch;
   }
 
-  .home-route-shell .nav-right {
+  .nav-right {
     grid-area: actions;
+    min-width: max-content;
     gap: 0.8rem;
     flex-wrap: nowrap;
   }
 
-  .home-route-shell nav ul {
+  nav ul {
     gap: 0.8rem;
   }
 
-  .home-route-shell .auth-controls {
+  .auth-controls {
     gap: 0.8rem;
   }
 }
 
 @media (max-width: 768px) {
-  .home-route-shell nav {
+  nav {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
       "brand actions"
@@ -493,18 +499,18 @@ a {
     padding: 0.65rem 0.9rem;
   }
 
-  .home-route-shell .brand-link {
+  .brand-link {
     grid-area: brand;
   }
 
-  .home-route-shell .nav-search {
+  .nav-search {
     grid-area: search;
     min-width: 0;
     width: 100%;
     margin: 0;
   }
 
-  .home-route-shell .nav-right {
+  .nav-right {
     grid-area: actions;
     position: relative;
     justify-content: flex-end;
@@ -512,16 +518,16 @@ a {
     gap: 0.65rem;
   }
 
-  .home-route-shell .nav-right > ul {
+  .nav-right > ul {
     gap: 0;
   }
 
-  .home-route-shell .nav-right > ul > li:not(.nav-notifications-item),
-  .home-route-shell .nav-right > .auth-controls {
+  .nav-right > ul > li:not(.nav-notifications-item),
+  .nav-right > .auth-controls {
     display: none;
   }
 
-  .home-route-shell .nav-mobile-menu-toggle {
+  .nav-mobile-menu-toggle {
     display: inline-flex;
     width: 2.25rem;
     height: 2.25rem;
@@ -534,7 +540,7 @@ a {
     cursor: pointer;
   }
 
-  .home-route-shell .nav-mobile-menu {
+  .nav-mobile-menu {
     position: absolute;
     top: calc(100% + 0.55rem);
     right: 0;
@@ -549,8 +555,8 @@ a {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
   }
 
-  .home-route-shell .nav-mobile-menu > a,
-  .home-route-shell .nav-mobile-menu-account {
+  .nav-mobile-menu > a,
+  .nav-mobile-menu-account {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -560,16 +566,16 @@ a {
     color: var(--body-text);
   }
 
-  .home-route-shell .nav-mobile-menu > a:hover {
+  .nav-mobile-menu > a:hover {
     background: var(--surface-subtle-bg);
   }
 
-  .home-route-shell .nav-mobile-menu-account {
+  .nav-mobile-menu-account {
     border-top: 1px solid var(--surface-border);
     color: var(--muted-text);
   }
 
-  .home-route-shell .nav-mobile-menu-account button {
+  .nav-mobile-menu-account button {
     border: 1px solid var(--accent-border);
     padding: 0.35rem 0.55rem;
     background: var(--accent-surface);

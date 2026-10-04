@@ -110,7 +110,9 @@ export function Messages() {
   );
 
   return (
-    <div className="messages-container">
+    <div
+      className={`messages-container ${selectedUserId ? "messages-has-selection" : ""}`}
+    >
       <div className="messages-list">
         <h2>Messages</h2>
         {conversations.length === 0 ? (
@@ -156,6 +158,14 @@ export function Messages() {
         {selectedUserId ? (
           <>
             <div className="messages-header">
+              <button
+                type="button"
+                className="messages-back-button"
+                aria-label="Back to conversations"
+                onClick={() => setSelectedUserId(null)}
+              >
+                <span aria-hidden="true">&larr;</span>
+              </button>
               {selectedConversation ? (
                 <Link
                   className="messages-header-link"
