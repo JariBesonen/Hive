@@ -65,6 +65,7 @@ function Navbar() {
     hives: ApiHive[];
   }>({ searches: [], hives: [] });
   const [notificationsOpen, setNotificationsOpen] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<ApiNotification[]>([]);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [unreadMessageCount, setUnreadMessageCount] = useState<number>(0);
@@ -456,6 +457,49 @@ function Navbar() {
             </div>
           )}
         </div>
+        <button
+          type="button"
+          className="nav-mobile-menu-toggle"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((open) => !open)}
+        >
+          <span aria-hidden="true">☰</span>
+        </button>
+        {mobileMenuOpen ? (
+          <div className="nav-mobile-menu">
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              Home
+            </Link>
+            {currentUser ? (
+              <Link to="/create" onClick={() => setMobileMenuOpen(false)}>
+                Create Hive
+              </Link>
+            ) : null}
+            {currentUser ? (
+              <Link to="/messages" onClick={() => setMobileMenuOpen(false)}>
+                Messages
+              </Link>
+            ) : null}
+            {currentUser ? (
+              <Link to="/profile" onClick={() => setMobileMenuOpen(false)}>
+                Profile
+              </Link>
+            ) : null}
+            {currentUser ? (
+              <div className="nav-mobile-menu-account">
+                <span>@{currentUser.username}</span>
+                <button type="button" onClick={() => void handleLogout()}>
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                Login
+              </Link>
+            )}
+          </div>
+        ) : null}
       </div>
     </nav>
   );

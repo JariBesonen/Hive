@@ -26,9 +26,10 @@ function AppLayout() {
   const location = useLocation();
   const isAuthRoute =
     location.pathname === "/login" || location.pathname === "/register";
+  const isHomeRoute = location.pathname === "/";
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${isHomeRoute ? "home-route-shell" : ""}`}>
       <Navbar />
       {!isAuthRoute ? <SideNavbar /> : null}
       <div className={`app-content ${isAuthRoute ? "auth-route-content" : ""}`}>

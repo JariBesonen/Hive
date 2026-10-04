@@ -301,3 +301,52 @@
   background-color: var(--accent);
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .home-route-shell .post-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0.8rem;
+    gap: 0.55rem;
+  }
+
+  .home-route-shell .post-card-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .home-route-shell .post-card-meta-actions {
+    min-width: 0;
+    flex-wrap: wrap;
+  }
+
+  .home-route-shell .post-card-author {
+    overflow-wrap: anywhere;
+  }
+
+  .home-route-shell .post-card h3,
+  .home-route-shell .post-card p,
+  .home-route-shell .post-card-comment {
+    overflow-wrap: anywhere;
+  }
+
+  .home-route-shell .post-card-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .home-route-shell .post-card-vote-row,
+  .home-route-shell .post-card-comment-vote-row {
+    flex-wrap: wrap;
+  }
+
+  .home-route-shell .post-card-comment-form textarea,
+  .home-route-shell .post-card-reply-form textarea {
+    width: 100%;
+    max-width: 100%;
+  }
+}
