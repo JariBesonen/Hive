@@ -27,10 +27,6 @@ function Home() {
   return (
     <main className="home-page">
       <section className="home-shell">
-        <h2>Home Feed</h2>
-        <p className="home-description">
-          Your personalized Hive timeline. Follow creators to shape this feed.
-        </p>
         {error ? <p className="home-error">{error}</p> : null}
         <div className="home-list">
           {posts.map((post: ApiPost) => (
