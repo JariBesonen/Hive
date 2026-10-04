@@ -610,7 +610,9 @@ export default function PostCard({
       </header>
       <h3>{post.title}</h3>
       {imageSrc ? (
-        <img className="post-card-image" src={imageSrc} alt={post.title} />
+        <div className="post-card-image-wrapper">
+          <img className="post-card-image" src={imageSrc} alt={post.title} />
+        </div>
       ) : null}
       {shouldRenderBody ? <p>{post.content}</p> : null}
       <div className="post-card-vote-row">
