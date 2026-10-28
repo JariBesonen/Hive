@@ -1,3 +1,4 @@
+import { randomBytes } from "crypto";
 import type { Request, Response } from "express";
 import {
   createUser,
@@ -65,6 +66,7 @@ export async function register(req: Request, res: Response): Promise<Response> {
     passwordHash,
   );
   req.session.userId = user.id;
+  req.session.isGuest = false;
 
   return res.status(201).json({ user: sanitizeUser(user) });
 }
@@ -92,10 +94,31 @@ export async function login(req: Request, res: Response): Promise<Response> {
   }
 
   req.session.userId = user.id;
+  req.session.isGuest = false;
   return res.status(200).json({ user: sanitizeUser(user) });
 }
 
-export function logout(req: Request, res: Response): void {
+export async function guest(req: Request, res: Response): Promise<Response> {
+  const guestId = randomBytes(6).toString("hex");
+  const guestPassword = randomBytes(32).toString("hex");
+  const user = await createUser(
+    `guest-${guestId}`,
+    `guest-${guestId}@hive.invalid`,
+    hashPassword(guestPassword),
+  );
+
+  req.session.userId = user.id;
+  req.session.isGuest = true;
+  return res.status(200).json({ user: sanitizeUser(user) });
+}
+
+export async function logout(req: Request, res: Response): Promise<void> {
+  const guestUserId = req.session.isGuest ? req.session.userId : undefined;
+
+  if (guestUserId) {
+    await deleteUserById(guestUserId);
+  }
+
   req.session.destroy((error: Error | null) => {
     if (error) {
       res.status(500).json({ message: "Unable to logout." });
@@ -109,7 +132,7 @@ export function logout(req: Request, res: Response): void {
 
 export async function me(req: Request, res: Response): Promise<Response> {
   if (!req.session.userId) {
-    return res.status(200).json({ user: null });
+    return res.status(200).json({ user: null, isGuest: false });
   }
 
   const user = await findUserById(req.session.userId);
@@ -117,7 +140,10 @@ export async function me(req: Request, res: Response): Promise<Response> {
     return res.status(404).json({ message: "User not found." });
   }
 
-  return res.status(200).json({ user: sanitizeUser(user) });
+  return res.status(200).json({
+    user: sanitizeUser(user),
+    isGuest: req.session.isGuest === true,
+  });
 }
 
 export async function deleteAccount(
@@ -126,6 +152,12 @@ export async function deleteAccount(
 ): Promise<Response> {
   if (!req.session.userId) {
     return res.status(401).json({ message: "Not authenticated." });
+  }
+
+  if (req.session.isGuest) {
+    return res.status(403).json({
+      message: "Guest accounts cannot be deleted.",
+    });
   }
 
   const { confirmation } = req.body as { confirmation?: string };

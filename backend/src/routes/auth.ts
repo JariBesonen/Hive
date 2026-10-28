@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   deleteAccount,
+  guest,
   login,
   logout,
   me,
@@ -17,6 +18,7 @@ const authRateLimit = createRateLimitMiddleware({
 
 authRouter.post("/register", authRateLimit, register);
 authRouter.post("/login", authRateLimit, login);
+authRouter.post("/guest", authRateLimit, guest);
 authRouter.post("/logout", authRateLimit, logout);
 authRouter.get("/me", me);
 authRouter.delete("/account", authRateLimit, deleteAccount);

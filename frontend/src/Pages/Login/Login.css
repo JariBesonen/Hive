@@ -62,6 +62,35 @@
   cursor: pointer;
 }
 
+.guest-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--muted-text);
+  font-size: 0.85rem;
+}
+
+.guest-divider::before,
+.guest-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--surface-border);
+}
+
+.auth-card .guest-login-button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.guest-warning {
+  margin: 0;
+  color: var(--muted-text);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
 .auth-error {
   color: #ab1d1d;
 }

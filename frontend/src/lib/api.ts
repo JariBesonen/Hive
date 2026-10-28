@@ -236,7 +236,9 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  getMe: () => request<{ user: ApiUser | null }>("/api/auth/me"),
+  getMe: () => request<{ user: ApiUser | null; isGuest?: boolean }>(
+    "/api/auth/me",
+  ),
   register: (body: { username: string; email: string; password: string }) =>
     request<{ user: ApiUser }>("/api/auth/register", {
       method: "POST",
@@ -246,6 +248,10 @@ export const api = {
     request<{ user: ApiUser }>("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(body),
+    }),
+  guest: () =>
+    request<{ user: ApiUser }>("/api/auth/guest", {
+      method: "POST",
     }),
   logout: () =>
     request<{ message: string }>("/api/auth/logout", {

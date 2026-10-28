@@ -5,10 +5,25 @@ import "./Login.css";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, loginAsGuest } = useAuth();
   const [identity, setIdentity] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+
+  async function handleGuestLogin(): Promise<void> {
+    setErrorMessage("");
+
+    try {
+      await loginAsGuest();
+      navigate("/");
+    } catch (caughtError) {
+      setErrorMessage(
+        caughtError instanceof Error
+          ? caughtError.message
+          : "Unable to continue as guest.",
+      );
+    }
+  }
 
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>,
@@ -68,6 +83,24 @@ export default function Login() {
           </Link>
           <button type="submit">Login</button>
         </form>
+
+        <div className="guest-divider" aria-hidden="true">
+          <span>or</span>
+        </div>
+        <button
+          type="button"
+          className="guest-login-button"
+          onClick={() => {
+            void handleGuestLogin();
+          }}
+        >
+          Continue as Guest
+        </button>
+        <p className="guest-warning">
+          You are using a temporary guest account. Activity is wiped when you
+          log out and cannot be recovered.
+        </p>
+
         {errorMessage ? <p className="auth-error">{errorMessage}</p> : null}
       </section>
     </main>
