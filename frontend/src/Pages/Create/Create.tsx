@@ -14,12 +14,15 @@ export default function Create() {
   const [isPrivate, setIsPrivate] = useState<boolean>(false);
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string>("");
+  const [bannerError, setBannerError] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
   function clearBanner(): void {
     setBannerFile(null);
     setBannerPreview("");
+    setBannerError("");
+    setMessage("");
 
     const input = document.getElementById("hive-banner") as HTMLInputElement | null;
     if (input) {
@@ -39,12 +42,18 @@ export default function Create() {
     event: React.FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
-    setMessage("");
+
+    if (bannerError) {
+      setMessage(bannerError);
+      return;
+    }
 
     if (!name.trim() || !description.trim()) {
       setMessage("Hive name and description are required.");
       return;
     }
+
+    setMessage("");
 
     const tags = tagsInput
       .split(",")
@@ -67,10 +76,10 @@ export default function Create() {
         formData.append("bannerImage", bannerFile);
       }
 
-      await api.createHive(formData);
+      const response = await api.createHive(formData);
       incrementHiveRefreshKey();
       setMessage("Hive created successfully.");
-      navigate("/explore");
+      navigate(`/hive/${response.hive.id}`);
     } catch (caughtError) {
       if (caughtError instanceof ApiError && caughtError.status === 409) {
         setMessage(
@@ -138,17 +147,22 @@ export default function Create() {
               }
 
               if (file.size > 2 * 1024 * 1024) {
-                setMessage("Banner image must be 2MB or smaller.");
                 clearBanner();
+                const error = "Banner image must be 2MB or smaller.";
+                setBannerError(error);
+                setMessage(error);
                 return;
               }
 
               if (!file.type.startsWith("image/")) {
-                setMessage("Banner file must be an image.");
                 clearBanner();
+                const error = "Banner file must be an image.";
+                setBannerError(error);
+                setMessage(error);
                 return;
               }
 
+              setBannerError("");
               setMessage("");
               if (bannerPreview.startsWith("blob:")) {
                 URL.revokeObjectURL(bannerPreview);
@@ -157,6 +171,15 @@ export default function Create() {
               setBannerPreview(URL.createObjectURL(file));
             }}
           />
+
+          {bannerError ? (
+            <div className="create-banner-error" role="alert">
+              <p>{bannerError}</p>
+              <button type="button" onClick={clearBanner}>
+                Dismiss and continue without a banner
+              </button>
+            </div>
+          ) : null}
 
           {bannerPreview ? (
             <>

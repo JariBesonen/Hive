@@ -90,6 +90,17 @@
   color: #a22f2f;
 }
 
+.create-banner-error {
+  color: #a62020;
+}
+
+.create-banner-error button {
+  justify-self: start;
+  background: transparent;
+  color: inherit;
+  border: 1px solid currentColor;
+}
+
 .create-post-form button {
   margin-top: 0.5rem;
   border: none;

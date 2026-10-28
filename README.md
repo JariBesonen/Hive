@@ -47,6 +47,23 @@ npm run dev
 
 The API runs on `http://localhost:5000` by default.
 
+### Optional sample content
+
+To populate the local database with synthetic profiles and text-only community
+content, run this from the `backend` directory after configuring `.env`:
+
+```bash
+npm run seed
+```
+
+The script creates 20 fictional profiles, 17 public Hives, 85 text-only posts,
+comments and replies, varied votes, memberships, and follows. Seeded accounts
+use reserved `.invalid` email addresses and randomly generated, undisclosed
+passwords; they are not intended for login. The script never deletes data or
+updates existing accounts. It is safe to rerun: matching seeded records and
+relationships are reused, and a collision with a non-seed username or Hive
+name aborts the transaction rather than modifying that record.
+
 ### 3. Frontend
 
 ```bash
