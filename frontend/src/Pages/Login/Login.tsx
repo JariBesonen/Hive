@@ -43,11 +43,8 @@ export default function Login() {
 
   return (
     <main className="auth-page">
-      <section className="auth-card">
+      <section className="auth-card login-card">
         <h2>Login to Hive</h2>
-        <p className="auth-subtitle">
-          Access your feed, communities, and account settings.
-        </p>
         <form
           className="auth-form"
           onSubmit={(event) => {
